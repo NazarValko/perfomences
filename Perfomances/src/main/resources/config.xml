@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd"
+       default-init-method="turnOnLights"
+       default-destroy-method="turnOffLights">
+
+    <!-- Здесь должны находиться объявления компонентов -->
+
+    <bean id="sonnet29" class="springidols.Sonnet29"/>
+    <bean id="theStage" class="springidols.Stage" factory-method="getInstance" scope="singleton"/>
+    <bean id="poeticDuke" class="springidols.PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg ref="sonnet29"/>
+    </bean>
+    <bean id="auditorium" class="springidols.Auditorium" init-method="turnOnLights" destroy-method="turnOffLights"/>
+
+
+    <bean id="kenny" class="springidols.Instrumentalist">
+        <property name="song" value="Jeangle Bells"/>
+<!--        <property name="instrument" ref="saxophone"/>-->
+        <property name="instrument">
+            <bean class="springidols.Saxophone"/>
+        </property>
+    </bean>
+
+    <bean id="piano" class="springidols.Piano"/>
+    <bean id="duke" class="springidols.PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg>
+            <bean class="springidols.Sonnet29"/>
+        </constructor-arg>
+    </bean>
+
+
+
+    <bean id="hank"
+          class="springidols.OnManBand">
+        <property name="instruments">
+            <set>
+                <ref bean="guitar"/>
+                <ref bean="cymbal"/>
+                <ref bean="harmonika"/>
+            </set>
+        </property>
+    </bean>
+
+
+    <bean id="guitar"/>
+    <bean id="cymbal"/>
+    <bean id="harmonika"/>
+
+
+
+    <bean id="nick"
+          class="springidols.OnManBand1">
+        <property name="instruments">
+            <map>
+                <entry key="QUITAR" value-ref="guitar"/>
+                <entry key="CYMBAL" value-ref="cymbal"/>
+                <entry key="HARMONIKA" value-ref="harmonika"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="jack"
+          class="springidols.OnManBand2">
+        <property name="instruments">
+            <props>
+                <prop key="GUITAR">STRUM STRUM STRUM</prop>
+                <prop key="CYMBAL">CRASH CRASH CRASH</prop>
+                <prop key="HARMONIKA">HUM HUM HUM</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>

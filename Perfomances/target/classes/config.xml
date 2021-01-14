@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-init-method="turnOnLights"
+       default-destroy-method="turnOffLights">
+
+    <!-- Здесь должны находиться объявления компонентов -->
+    <bean id="duke" class="springidols.Juggler"/>
+    <bean id="sonnet29" class="springidols.Sonnet29"/>
+    <bean id="theStage" class="springidols.Stage" factory-method="getInstance" scope="singleton"/>
+    <bean id="poeticDuke" class="springidols.PoeticJuggler">
+        <constructor-arg value="15"/>
+        <constructor-arg ref="sonnet29"/>
+    </bean>
+    <bean id="auditorium" class="springidols.Auditorium" init-method="turnOnLights" destroy-method="turnOffLights"/>
+    <bean id="kenny" class="springidols.Instrumentalist">
+        <property name="song" value="Jeangle Bells"/>
+<!--        <property name="instrument" ref="saxophone"/>-->
+        <property name="instrument" ref="piano"/>
+    </bean>
+    <bean id="saxophone" class="springidols.Saxophone"/>
+    <bean id="piano" class="springidols.Piano"/>
+</beans>
